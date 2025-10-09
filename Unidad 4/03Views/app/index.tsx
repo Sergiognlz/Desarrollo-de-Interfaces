@@ -14,7 +14,7 @@ export default function App() {
       <View style={styles.body}>
         
         {/* Columna izquierda */}
-        <View style={styles.sideColumn2}>
+        <View style={styles.sideColumnIzq}>
           <Text style={styles.text}></Text>
         </View>
 
@@ -24,7 +24,7 @@ export default function App() {
         </View>
 
         {/* Columna derecha */}
-        <View style={styles.sideColumn}>
+        <View style={styles.sideColumnDer}>
           <Text style={styles.text}></Text>
         </View>
 
@@ -53,15 +53,15 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
   },
-  sideColumn: {
+  sideColumnDer: {
     width: 60,
-    backgroundColor: "#a34a4aff", // color visible
+    backgroundColor: "#05700eff", // color visible
     justifyContent: "center",
     alignItems: "center",
   },
-   sideColumn2: {
+   sideColumnIzq: {
     width: 60,
-    backgroundColor: "#a34a4aff", // color visible
+    backgroundColor: "#001facff", // color visible
     justifyContent: "center",
     alignItems: "center",
   },
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     height: 50,
-    backgroundColor: "#2196F3", // color visible
+    backgroundColor: "#f1bed8ff", // color visible
     justifyContent: "center",
     alignItems: "center",
   },
