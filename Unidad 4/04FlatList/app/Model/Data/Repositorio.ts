@@ -1,44 +1,33 @@
 
+import { Persona } from "../Entidades/PersonaModelo";
 
+export class Repositorio{
 
-export const DATA = [
-  { id: '1', nombre: 'Manolo el del bombo'},
-  { id: '2', nombre: 'Paquito el chocolatero' },
-  { id: '3', nombre: 'Dolores fuertes de barriga' },
-  { id: '4', nombre: 'María Unpajote'},
-  { id: '5', nombre: 'Elba Ginón' },
-  { id: '6', nombre: 'Tomás Turbado' },
-  { id: '7', nombre: 'Olora Bagina'},
-  { id: '8', nombre: 'Fulatino Pérez' },
-  { id: '9', nombre: 'Venganito Rodríguez' },
-  { id: '10', nombre: 'Pablo Iglesias'},
-  { id: '12', nombre: 'Perro Sánchez' },
-  { id: '13', nombre: 'Tucanda Foreve' },
-    { id: '14', nombre: 'María Unpajote'},
-  { id: '15', nombre: 'Elba Ginón' },
-  { id: '16', nombre: 'Tomás Turbado' },
-  { id: '17', nombre: 'Olora Bagina'},
-  { id: '18', nombre: 'Fulatino Pérez' },
-  { id: '19', nombre: 'Venganito Rodríguez' },
-  { id: '20', nombre: 'Pablo Iglesias'},
-  { id: '21', nombre: 'Perro Sánchez' },
-  { id: '22', nombre: 'Tucanda Foreve' },
-    { id: '23', nombre: 'María Unpajote'},
-  { id: '24', nombre: 'Elba Ginón' },
-  { id: '25', nombre: 'Tomás Turbado' },
-  { id: '26', nombre: 'Olora Bagina'},
-  { id: '27', nombre: 'Fulatino Pérez' },
-  { id: '28', nombre: 'Venganito Rodríguez' },
-  { id: '29', nombre: 'Pablo Iglesias'},
-  { id: '30', nombre: 'Perro Sánchez' },
-  { id: '31', nombre: 'Tucanda Foreve' },
-    { id: '32', nombre: 'María Unpajote'},
-  { id: '33', nombre: 'Elba Ginón' },
-  { id: '34', nombre: 'Tomás Turbado' },
-  { id: '35', nombre: 'Olora Bagina'},
-  { id: '36', nombre: 'Fulatino Pérez' },
-  { id: '37', nombre: 'Venganito Rodríguez' },
-  { id: '38', nombre: 'Pablo Iglesias'},
-  { id: '39', nombre: 'Perro Sánchez' },
-  { id: '40', nombre: 'Tucanda Foreve' },
-];
+    static getPersona():Persona[]{
+
+    return[new Persona(1,'Manolo el del Bombo'),
+    new Persona(2, "Paquito el chocolatero"),
+    new Persona(3," Dolores Fuertes de Barriga" ),
+    new Persona(4,  "María Unpajote"),
+    new Persona(5, "Elba Ginón"),
+    new Persona(6, "Tomás Turbado"),
+    new Persona(7,"Olora Bagina"),
+    new Persona(8, "Fulanito Pérez"),
+    new Persona(9, "Venganito Rodríguez"),
+    new Persona(10, "Pablo Iglesias"),
+    new Persona(11, "Perro Sánchez"),
+    new Persona(12, "Paquito el chocolatero"),
+    new Persona(13," Dolores Fuertes de Barriga" ),
+    new Persona(14,  "María Unpajote"),
+    new Persona(15, "Elba Ginón"),
+    new Persona(16, "Tomás Turbado"),
+    new Persona(17,"Olora Bagina"),
+    new Persona(18, "Fulanito Pérez"),
+    new Persona(19, "Venganito Rodríguez"),
+    new Persona(20, "Pablo Iglesias"),
+    new Persona(11, "Perro Sánchez")
+
+]
+ }
+
+}
