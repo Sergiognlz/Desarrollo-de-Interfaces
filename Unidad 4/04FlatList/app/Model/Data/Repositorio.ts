@@ -16,16 +16,16 @@ export class Repositorio{
     new Persona(9, "Venganito Rodríguez"),
     new Persona(10, "Pablo Iglesias"),
     new Persona(11, "Perro Sánchez"),
-    new Persona(12, "Paquito el chocolatero"),
-    new Persona(13," Dolores Fuertes de Barriga" ),
-    new Persona(14,  "María Unpajote"),
-    new Persona(15, "Elba Ginón"),
-    new Persona(16, "Tomás Turbado"),
-    new Persona(17,"Olora Bagina"),
-    new Persona(18, "Fulanito Pérez"),
-    new Persona(19, "Venganito Rodríguez"),
-    new Persona(20, "Pablo Iglesias"),
-    new Persona(11, "Perro Sánchez")
+    new Persona(12, "Samuel Eto'o"),
+    new Persona(13," Sergio González" ),
+    new Persona(14,  "Raúl González"),
+    new Persona(15, "Fernando Torres"),
+    new Persona(16, "Cristiano Ronaldo"),
+    new Persona(17,"Lionel Messi"),
+    new Persona(18, "Neymar Jr"),
+    new Persona(19, "Kylian Mbappé"),
+    new Persona(20, "Benzema"),
+    new Persona(11, "Juan Carlos I"),
 
 ]
  }
