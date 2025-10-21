@@ -15,9 +15,13 @@ const viewModel = container.get<PeopleListVM>(TYPES.IndexVM)
 
 const renderItem = ({ item }: { item: Persona }) => (
    
-      <Text style={styles.itemText}>{item.nombre} {item.apellidos}</Text>
+      <Text style={styles.itemText}>{item.Nombre} {item.Apellidos}</Text>
    
   );
+
+
+ 
+
 
     return (
       <SafeAreaView style={styles.container}>
@@ -26,7 +30,7 @@ const renderItem = ({ item }: { item: Persona }) => (
         <FlatList
           data={viewModel.personasList}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={(item) => item.Id.toString()}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
           ListEmptyComponent={() => (
             <Text style={styles.textoVacio}>No hay personas registradas</Text>
