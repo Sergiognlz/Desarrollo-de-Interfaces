@@ -14,7 +14,7 @@ export default function RootLayout() {
     >
       <Tabs.Screen
         name="index" // solo el nombre del archivo dentro de (tabs)
-        options={{
+        options={{s
           headerTitle: 'Home',
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home" size={size} color={color} />
