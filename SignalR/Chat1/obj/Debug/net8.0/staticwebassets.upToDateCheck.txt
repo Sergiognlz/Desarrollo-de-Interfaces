@@ -1,5 +1,6 @@
 wwwroot\css\site.css
 wwwroot\favicon.ico
+wwwroot\js\Chat.js
 wwwroot\js\signalr\dist\browser\signalr.js
 wwwroot\js\signalr\dist\browser\signalr.min.js
 wwwroot\js\site.js
@@ -62,4 +63,3 @@ wwwroot\lib\jquery\dist\jquery.min.map
 wwwroot\lib\jquery\LICENSE.txt
 wwwroot\lib\microsoft\signalr\dist\browser\signalr.js
 wwwroot\lib\microsoft\signalr\dist\browser\signalr.min.js
-wwwroot\js\Chat.js
