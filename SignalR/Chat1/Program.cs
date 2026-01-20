@@ -6,6 +6,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddSignalR();
 
+
+
+
+builder.Services.AddSignalR();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactNative",
@@ -17,6 +21,10 @@ builder.Services.AddCors(options =>
                 .AllowCredentials();
         });
 });
+
+
+
+
 
 
 var app = builder.Build();

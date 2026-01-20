@@ -7,24 +7,24 @@
       "RelativeMoniker": "D:0:0:{9C466720-9140-438D-AC35-47F7A5091E37}|SignalRChat.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9C466720-9140-438D-AC35-47F7A5091E37}|SignalRChat.csproj|c:\\users\\sgonzalez\\desktop\\desarrollo de interfaces\\desarrollo-de-interfaces\\signalr\\chat1\\hub\\chathub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9C466720-9140-438D-AC35-47F7A5091E37}|SignalRChat.csproj|solutionrelative:hub\\chathub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9C466720-9140-438D-AC35-47F7A5091E37}|SignalRChat.csproj|c:\\users\\sgonzalez\\desktop\\desarrollo de interfaces\\desarrollo-de-interfaces\\signalr\\chat1\\pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{9C466720-9140-438D-AC35-47F7A5091E37}|SignalRChat.csproj|solutionrelative:pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{9C466720-9140-438D-AC35-47F7A5091E37}|SignalRChat.csproj|c:\\users\\sgonzalez\\desktop\\desarrollo de interfaces\\desarrollo-de-interfaces\\signalr\\chat1\\libman.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{9C466720-9140-438D-AC35-47F7A5091E37}|SignalRChat.csproj|solutionrelative:libman.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9C466720-9140-438D-AC35-47F7A5091E37}|SignalRChat.csproj|c:\\users\\sgonzalez\\desktop\\desarrollo de interfaces\\desarrollo-de-interfaces\\signalr\\chat1\\wwwroot\\js\\chat.js||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9C466720-9140-438D-AC35-47F7A5091E37}|SignalRChat.csproj|solutionrelative:wwwroot\\js\\chat.js||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9C466720-9140-438D-AC35-47F7A5091E37}|SignalRChat.csproj|c:\\users\\sgonzalez\\desktop\\desarrollo de interfaces\\desarrollo-de-interfaces\\signalr\\chat1\\libman.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{9C466720-9140-438D-AC35-47F7A5091E37}|SignalRChat.csproj|solutionrelative:libman.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{9C466720-9140-438D-AC35-47F7A5091E37}|SignalRChat.csproj|c:\\users\\sgonzalez\\desktop\\desarrollo de interfaces\\desarrollo-de-interfaces\\signalr\\chat1\\pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9C466720-9140-438D-AC35-47F7A5091E37}|SignalRChat.csproj|solutionrelative:pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9C466720-9140-438D-AC35-47F7A5091E37}|SignalRChat.csproj|c:\\users\\sgonzalez\\desktop\\desarrollo de interfaces\\desarrollo-de-interfaces\\signalr\\chat1\\signalrchat.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{9C466720-9140-438D-AC35-47F7A5091E37}|SignalRChat.csproj|solutionrelative:signalrchat.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C466720-9140-438D-AC35-47F7A5091E37}|SignalRChat.csproj|c:\\users\\sgonzalez\\desktop\\desarrollo de interfaces\\desarrollo-de-interfaces\\signalr\\chat1\\hub\\chathub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C466720-9140-438D-AC35-47F7A5091E37}|SignalRChat.csproj|solutionrelative:hub\\chathub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -54,7 +54,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "libman.json",
               "DocumentMoniker": "C:\\Users\\sgonzalez\\Desktop\\Desarrollo de Interfaces\\Desarrollo-de-Interfaces\\SignalR\\Chat1\\libman.json",
               "RelativeDocumentMoniker": "libman.json",
@@ -66,7 +66,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "Chat.js",
               "DocumentMoniker": "C:\\Users\\sgonzalez\\Desktop\\Desarrollo de Interfaces\\Desarrollo-de-Interfaces\\SignalR\\Chat1\\wwwroot\\js\\Chat.js",
               "RelativeDocumentMoniker": "wwwroot\\js\\Chat.js",
@@ -78,7 +78,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\sgonzalez\\Desktop\\Desarrollo de Interfaces\\Desarrollo-de-Interfaces\\SignalR\\Chat1\\Pages\\Index.cshtml",
               "RelativeDocumentMoniker": "Pages\\Index.cshtml",
@@ -96,14 +96,14 @@
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\sgonzalez\\Desktop\\Desarrollo de Interfaces\\Desarrollo-de-Interfaces\\SignalR\\Chat1\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-15T12:17:49.017Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "ChatHub.cs",
               "DocumentMoniker": "C:\\Users\\sgonzalez\\Desktop\\Desarrollo de Interfaces\\Desarrollo-de-Interfaces\\SignalR\\Chat1\\Hub\\ChatHub.cs",
               "RelativeDocumentMoniker": "Hub\\ChatHub.cs",
@@ -111,12 +111,11 @@
               "RelativeToolTip": "Hub\\ChatHub.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-15T12:16:38.388Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-15T12:16:38.388Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
               "Title": "SignalRChat.csproj",
               "DocumentMoniker": "C:\\Users\\sgonzalez\\Desktop\\Desarrollo de Interfaces\\Desarrollo-de-Interfaces\\SignalR\\Chat1\\SignalRChat.csproj",
               "RelativeDocumentMoniker": "SignalRChat.csproj",
