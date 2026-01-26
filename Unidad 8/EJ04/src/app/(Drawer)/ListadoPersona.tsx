@@ -1,29 +1,37 @@
-import { useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useRouter } from "expo-router";
 import { useEffect, useMemo, useState } from "react";
-import { Button, FlatList, Image, StyleSheet, Text, TextInput, View } from "react-native";
+import { Alert, Button, FlatList, Image, Platform, StyleSheet, Text, TextInput, View } from "react-native";
 import { PersonaViewModel } from "../../UI/ViewModels/Persona/PersonaViewModel";
 
-// Tipado del Stack
-type RootStackParamList = {
-  Root: undefined;
-  EditarInsertarPersonas: undefined;
-  EditarInsertarDepartamento: undefined;
-};
 
 const vm = PersonaViewModel.getInstance();
 
 export default function ListadoPersonasView() {
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const router = useRouter();
   const [filtro, setFiltro] = useState("");
   const [personas, setPersonas] = useState(vm.personas);
 
+  // Carga inicial de personas
+  const cargarPersonas = async () => {
+    try {
+      await vm.cargarPersonas();
+      setPersonas([...vm.personas]);
+    } catch (error) {
+      console.error("Error cargando personas:", error);
+    }
+  };
+
+  // Suscripción a cambios del ViewModel
   useEffect(() => {
-    vm.cargarPersonas();
-    const unsubscribe = vm.onChange(() => setPersonas([...vm.personas]));
-    return unsubscribe;
+    cargarPersonas();
+    const handler = () => setPersonas([...vm.personas]);
+    const unsubscribe = vm.onChange(handler);
+    return () => {
+      if (unsubscribe) unsubscribe(); // limpia la suscripción
+    };
   }, []);
 
+  // Filtrado en tiempo real con useMemo
   const personasFiltradas = useMemo(
     () =>
       personas.filter((p) =>
@@ -32,23 +40,64 @@ export default function ListadoPersonasView() {
     [filtro, personas]
   );
 
-  const renderItem = ({ item }: { item: typeof vm.personas[0] }) => (
+const eliminarPersona = (id: number, nombreCompleto: string) => {
+  if (Platform.OS === "web") {
+    if (confirm(`¿Seguro que quieres eliminar a ${nombreCompleto}?`)) {
+      vm.eliminarPersona(id);
+    }
+  } else {
+    Alert.alert(
+      "Confirmar eliminación",
+      `¿Seguro que quieres eliminar a ${nombreCompleto}?`,
+      [
+        { text: "Cancelar", style: "cancel" },
+        {
+          text: "Eliminar",
+          style: "destructive",
+          onPress: async () => {
+            try {
+              await vm.eliminarPersona(id);
+              Alert.alert("Éxito", `Se eliminó a ${nombreCompleto}`);
+            } catch (error: any) {
+              console.error("Error al eliminar persona:", error);
+              Alert.alert("Error", error.message || "No se pudo eliminar la persona");
+            }
+          },
+        },
+      ]
+    );
+  }
+};
+
+
+  // Render de cada item
+  const renderItem = ({ item }: any) => (
     <View style={styles.itemContainer}>
-      <Image source={{ uri: item.foto }} style={styles.foto} />
+      <Image
+        source={{ uri: item.foto || "https://via.placeholder.com/50" }}
+        style={styles.foto}
+      />
       <View style={styles.info}>
         <Text style={styles.nombre}>{item.nombreCompleto}</Text>
         <Text>Edad: {item.edad}</Text>
         <Text>Tel: {item.telefono}</Text>
         <Text>Dirección: {item.direccion}</Text>
       </View>
-      <Button
-        title="Editar"
-        onPress={() => {
-          vm.seleccionarPersona(item);
-          const parentNav = navigation.getParent<NativeStackNavigationProp<RootStackParamList>>();
-          parentNav!.navigate("EditarInsertarPersonas"); // navegamos al formulario
-        }}
-      />
+
+      <View style={styles.buttonsContainer}>
+        <Button
+          title="Editar"
+          onPress={() => {
+            vm.seleccionarPersona(item);
+            router.push("/Persona/EditarInsertarPersonas");
+          }}
+        />
+        <Button
+          title="Eliminar"
+          color="red"
+          onPress={() => eliminarPersona(item.id, item.nombreCompleto)}
+        />
+      </View>
     </View>
   );
 
@@ -65,13 +114,11 @@ export default function ListadoPersonasView() {
         title="Añadir Persona"
         onPress={() => {
           vm.limpiarSeleccion();
-          const parentNav = navigation.getParent<NativeStackNavigationProp<RootStackParamList>>();
-          parentNav!.navigate("EditarInsertarPersonas");
+          router.push("/Persona/EditarInsertarPersonas");
         }}
       />
 
       <FlatList
-        style={styles.list}
         data={personasFiltradas}
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderItem}
@@ -81,25 +128,24 @@ export default function ListadoPersonasView() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16, backgroundColor: "#fff" },
-  input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 8,
-    padding: 8,
-    marginBottom: 12,
-  },
-  list: { marginTop: 12 },
+  container: { flex: 1, padding: 16 },
+  input: { borderWidth: 1, marginBottom: 12, padding: 8, borderRadius: 6 },
   itemContainer: {
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 12,
     borderWidth: 1,
     borderColor: "#ddd",
-    padding: 8,
     borderRadius: 8,
+    padding: 8,
   },
   foto: { width: 50, height: 50, borderRadius: 25, marginRight: 12 },
   info: { flex: 1 },
   nombre: { fontWeight: "bold", fontSize: 16 },
+  buttonsContainer: {
+    flexDirection: "column",
+    justifyContent: "space-between",
+    marginLeft: 8,
+  },
 });
+

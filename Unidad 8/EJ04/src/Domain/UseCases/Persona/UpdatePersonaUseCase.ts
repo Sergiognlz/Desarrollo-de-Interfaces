@@ -16,10 +16,10 @@ export class UpdatePersonaUseCase {
     }
 
     // Validación opcional: no permitir actualizar personas menores de 0 años
-    if (persona.edad < 0) {
+    if (persona.fechaNacimiento > new Date()) {
       throw new Error("La fecha de nacimiento es inválida");
     }
-
+    console.log("Persona de el caso de uso", persona);
     // Llamada al repositorio
     return await this.personaRepo.EditPersona(persona);
   }

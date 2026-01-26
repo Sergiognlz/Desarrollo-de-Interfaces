@@ -1,20 +1,12 @@
-import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { useRouter } from "expo-router";
 import { useEffect, useMemo, useState } from "react";
-import { Button, FlatList, StyleSheet, TextInput, View } from "react-native";
-import { DepartamentoListItem } from "../../UI/Components/Departamento/DepartamentoListItem";
+import { Button, FlatList, StyleSheet, Text, TextInput, View } from "react-native";
 import { DepartamentoViewModel } from "../../UI/ViewModels/Departamento/DepartamentoViewModel";
-
-// Definimos los tipos del Stack padre
-type RootStackParamList = {
-  Root: undefined;
-  EditarInsertarDepartamento: undefined;
-  EditarInsertarPersonas: undefined;
-};
 
 const vm = DepartamentoViewModel.getInstance();
 
 export default function ListadoDepartamentosView() {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const router = useRouter();
   const [filtro, setFiltro] = useState("");
   const [departamentos, setDepartamentos] = useState(vm.departamentos);
 
@@ -34,6 +26,12 @@ export default function ListadoDepartamentosView() {
     [filtro, departamentos]
   );
 
+  const renderItem = ({ item }: any) => (
+    <View style={styles.itemContainer}>
+      <Text style={styles.nombre}>{item.nombre}</Text>
+    </View>
+  );
+
   return (
     <View style={styles.container}>
       <TextInput
@@ -43,32 +41,20 @@ export default function ListadoDepartamentosView() {
         onChangeText={setFiltro}
       />
 
-      {/* Botón Añadir */}
+      {/* Botón Añadir Departamento */}
       <Button
         title="Añadir Departamento"
         onPress={() => {
           vm.limpiarSeleccion();
-          // Subimos al Stack padre y navegamos al formulario
-          const parentNav = navigation.getParent<NavigationProp<RootStackParamList>>();
-          parentNav?.navigate("EditarInsertarDepartamento");
+          router.push("/Departamento/EditarInsertarDepartamento");
         }}
       />
 
-      {/* Lista de departamentos */}
       <FlatList
         style={styles.list}
         data={departamentosFiltrados}
         keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <DepartamentoListItem
-            departamento={item}
-            onPress={() => {
-              vm.seleccionarDepartamento(item);
-              const parentNav = navigation.getParent<NavigationProp<RootStackParamList>>();
-              parentNav?.navigate("EditarInsertarDepartamento");
-            }}
-          />
-        )}
+        renderItem={renderItem}
       />
     </View>
   );
@@ -84,4 +70,15 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   list: { marginTop: 12 },
+  itemContainer: {
+    borderWidth: 1,
+    borderColor: "#ddd",
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 10,
+  },
+  nombre: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
 });

@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import EditarInsertarDepartamento from "../../app/Departamento/EditarInsertarDepartamentoView";
-import EditarInsertarPersonas from "../../app/Persona/EditarInsertarPersonaView";
+import EditarInsertarDepartamento from "../../app/Departamento/EditarInsertarDepartamento";
+import EditarInsertarPersonas from "../../app/Persona/EditarInsertarPersonas";
 import AppDrawer from "./DrawerNavigator"; // <-- tu Drawer
 
 // 🔹 Definimos los tipos de rutas y sus parámetros

@@ -3,6 +3,7 @@ import { IPersonaRepository } from "../../Domain/Interfaces/Repositories/IPerson
 import { Connection } from "../DataBase/Connection";
 
 export class PersonasRepository implements IPersonaRepository {
+ 
   private apiUrl = Connection.getConnectionString() + "personas/";
 
   async GetListadoPersonasCompleto(): Promise<Persona[]> {
@@ -40,24 +41,69 @@ export class PersonasRepository implements IPersonaRepository {
   }
 
   async CreatePersona(persona: Persona): Promise<number> {
-    const res = await fetch(this.apiUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(persona),
-    });
-    if (!res.ok) throw new Error("No se pudo crear la persona");
-    return 1;
+  // Construimos el JSON exacto que espera la API
+  const body = {
+    nombre: persona.nombre,
+    apellidos: persona.apellidos,
+    telefono: persona.telefono,
+    direccion: persona.direccion,
+    foto: persona.foto,
+    fechaNacimiento: persona.fechaNacimiento.toISOString(), // convertir Date a string ISO
+    idDepartamento: persona.idDepartamento,
+  };
+
+  const res = await fetch(this.apiUrl, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error("No se pudo crear la persona: " + text);
   }
 
-  async EditPersona(persona: Persona): Promise<number> {
-    const res = await fetch(this.apiUrl + persona.id, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(persona),
-    });
-    if (!res.ok) throw new Error("No se pudo actualizar la persona");
-    return 1;
+  return 1;
+}
+
+async EditPersona(persona: Persona): Promise<number> {
+  // Aseguramos que fechaNacimiento sea un objeto Date válido
+  let fecha: string;
+  if (persona.fechaNacimiento instanceof Date) {
+    fecha = persona.fechaNacimiento.toISOString(); // ISO completo, compatible con ASP.NET
+  } else {
+    const parsed = new Date(persona.fechaNacimiento);
+    if (isNaN(parsed.getTime())) {
+      throw new Error("Fecha de nacimiento inválida");
+    }
+    fecha = parsed.toISOString();
   }
+
+  const body = {
+    id: persona.id,
+    nombre: persona.nombre,
+    apellidos: persona.apellidos,
+    telefono: persona.telefono,
+    direccion: persona.direccion,
+    foto: persona.foto,
+    fechaNacimiento: fecha,
+    idDepartamento: persona.idDepartamento,
+  };
+  console.log("Persona desde repositorio", body)
+  const res = await fetch(`${this.apiUrl}${persona.id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error("No se pudo actualizar la persona: " + text);
+  }
+
+  return 1;
+} 
+
 
   async DeletePersona(id: number): Promise<number> {
     const res = await fetch(this.apiUrl + id, { method: "DELETE" });

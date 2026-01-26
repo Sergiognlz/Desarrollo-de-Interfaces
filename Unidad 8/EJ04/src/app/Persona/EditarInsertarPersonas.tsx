@@ -1,3 +1,4 @@
+import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { Alert, Button, StyleSheet, TextInput, View } from "react-native";
 import { Persona } from "../../Domain/Entities/Persona";
@@ -5,7 +6,9 @@ import { PersonaViewModel } from "../../UI/ViewModels/Persona/PersonaViewModel";
 
 const vm = PersonaViewModel.getInstance();
 
-export default function EditarInsertarPersonasView({ navigation }: any) {
+export default function EditarInsertarPersonasView() {
+  const router = useRouter();
+
   const [nombre, setNombre] = useState("");
   const [apellidos, setApellidos] = useState("");
   const [fechaNacimiento, setFechaNacimiento] = useState("");
@@ -14,6 +17,7 @@ export default function EditarInsertarPersonasView({ navigation }: any) {
   const [foto, setFoto] = useState("");
   const [idDepartamento, setIdDepartamento] = useState<number | null>(null);
 
+  // Si estamos editando, cargar datos
   useEffect(() => {
     if (vm.personaSeleccionada) {
       const p = vm.personaSeleccionada;
@@ -27,8 +31,14 @@ export default function EditarInsertarPersonasView({ navigation }: any) {
     }
   }, []);
 
+  // Guardar nueva persona o actualizar existente
   const guardar = async () => {
     try {
+      if (!nombre.trim()) {
+        Alert.alert("Error", "El nombre es obligatorio");
+        return;
+      }
+
       const persona = new Persona(
         vm.personaSeleccionada?.id || Date.now(),
         nombre,
@@ -47,20 +57,10 @@ export default function EditarInsertarPersonasView({ navigation }: any) {
       }
 
       Alert.alert("Éxito", "Persona guardada correctamente");
-      navigation.goBack();
+
+      router.replace("/(Drawer)/ListadoPersona");
     } catch (error: any) {
       Alert.alert("Error", error.message || "No se pudo guardar la persona");
-    }
-  };
-
-  const eliminar = async () => {
-    if (!vm.personaSeleccionada) return;
-    try {
-      await vm.eliminarPersona(vm.personaSeleccionada.id);
-      Alert.alert("Éxito", "Persona eliminada correctamente");
-      navigation.goBack();
-    } catch (error: any) {
-      Alert.alert("Error", error.message || "No se pudo eliminar la persona");
     }
   };
 
@@ -75,7 +75,6 @@ export default function EditarInsertarPersonasView({ navigation }: any) {
       <TextInput placeholder="ID Departamento" style={styles.input} value={idDepartamento?.toString() || ""} onChangeText={text => setIdDepartamento(Number(text))} keyboardType="numeric" />
 
       <Button title={vm.personaSeleccionada ? "Actualizar" : "Crear"} onPress={guardar} />
-      {vm.personaSeleccionada && <Button title="Eliminar" color="red" onPress={eliminar} />}
     </View>
   );
 }

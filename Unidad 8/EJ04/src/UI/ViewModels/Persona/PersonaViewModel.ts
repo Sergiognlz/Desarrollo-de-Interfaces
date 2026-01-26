@@ -8,8 +8,7 @@ export class PersonaViewModel {
 
   personas: PersonaUIModel[] = [];
   personaSeleccionada: PersonaUIModel | null = null;
-
-  private callbacks: (() => void)[] = []; // suscriptores
+  private callbacks: (() => void)[] = [];
 
   private getPersonasUseCase = container.get<any>(TYPES.GetPersonaUseCase);
   private addPersonaUseCase = container.get<any>(TYPES.AddPersonaUseCase);
@@ -19,9 +18,7 @@ export class PersonaViewModel {
   private constructor() {}
 
   static getInstance(): PersonaViewModel {
-    if (!this.instance) {
-      this.instance = new PersonaViewModel();
-    }
+    if (!this.instance) this.instance = new PersonaViewModel();
     return this.instance;
   }
 
@@ -37,14 +34,9 @@ export class PersonaViewModel {
   }
 
   async cargarPersonas() {
-    try {
-      const data = await this.getPersonasUseCase.execute();
-      this.personas = data.map(PersonaUIModel.fromDomain);
-      this.notify();
-    } catch (error: any) {
-      console.error("Error al cargar personas:", error);
-      throw error;
-    }
+    const data = await this.getPersonasUseCase.execute();
+    this.personas = data.map(PersonaUIModel.fromDomain);
+    this.notify();
   }
 
   seleccionarPersona(p: PersonaUIModel) {
@@ -66,7 +58,15 @@ export class PersonaViewModel {
   }
 
   async eliminarPersona(id: number) {
-    await this.deletePersonaUseCase.execute(id);
-    await this.cargarPersonas();
+    try {
+      // Ejecuta UseCase, que puede lanzar error si es domingo
+      await this.deletePersonaUseCase.execute(id);
+      // Actualiza el array local para refrescar FlatList
+      this.personas = this.personas.filter(p => p.id !== id);
+      this.notify();
+    } catch (error) {
+      // Propaga el error para mostrar en la vista
+      throw error;
+    }
   }
 }
