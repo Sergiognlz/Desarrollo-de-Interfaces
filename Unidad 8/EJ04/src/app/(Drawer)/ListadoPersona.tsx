@@ -10,7 +10,9 @@ export default function ListadoPersonasView() {
   const [filtro, setFiltro] = useState("");
   const [personas, setPersonas] = useState(vm.personas);
 
-  // Carga inicial de personas y suscripción a cambios
+  // =====================
+  // Carga inicial y suscripción
+  // =====================
   useEffect(() => {
     const cargar = async () => {
       try {
@@ -23,23 +25,39 @@ export default function ListadoPersonasView() {
 
     cargar();
     const unsubscribe = vm.onChange(() => setPersonas([...vm.personas]));
-
     return () => {
       if (unsubscribe) unsubscribe();
     };
   }, []);
 
-  // Filtrado en tiempo real
-  const personasFiltradas = useMemo(
-    () =>
-      personas.filter((p) =>
-        p.nombreCompleto.toLowerCase().includes(filtro.toLowerCase())
-      ),
-    [filtro, personas]
-  );
+  // =====================
+  // Filtrado con casos de uso
+  // =====================
+  const personasFiltradas = useMemo(() => {
+    const day = new Date().getDay(); // 0=domingo, 5=viernes, 6=sábado
+    let lista = personas;
 
-  // Función eliminar con compatibilidad web y móvil
+    // Filtrar solo mayores de 18 viernes y sábado
+    if (day === 5 || day === 6) {
+      lista = lista.filter(p => p.edad >= 18);
+    }
+
+    // Filtrado por texto
+    return lista.filter(p =>
+      p.nombreCompleto.toLowerCase().includes(filtro.toLowerCase())
+    );
+  }, [filtro, personas]);
+
+  // =====================
+  // Eliminar persona con restricción domingo
+  // =====================
   const eliminarPersona = (id: number, nombreCompleto: string) => {
+    const day = new Date().getDay();
+    if (day === 0) {
+      Alert.alert("No permitido", "No se puede eliminar personas los domingos");
+      return;
+    }
+
     if (Platform.OS === "web") {
       if (confirm(`¿Seguro que quieres eliminar a ${nombreCompleto}?`)) {
         vm.eliminarPersona(id);
@@ -68,7 +86,9 @@ export default function ListadoPersonasView() {
     }
   };
 
+  // =====================
   // Render de cada persona
+  // =====================
   const renderItem = ({ item }: any) => (
     <View style={styles.itemContainer}>
       <Image
@@ -99,6 +119,9 @@ export default function ListadoPersonasView() {
     </View>
   );
 
+  // =====================
+  // UI principal
+  // =====================
   return (
     <View style={styles.container}>
       <TextInput
@@ -125,6 +148,9 @@ export default function ListadoPersonasView() {
   );
 }
 
+// =====================
+// Estilos
+// =====================
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16 },
   input: { borderWidth: 1, marginBottom: 12, padding: 8, borderRadius: 6 },
