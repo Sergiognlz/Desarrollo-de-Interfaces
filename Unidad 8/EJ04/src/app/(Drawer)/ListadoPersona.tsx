@@ -3,7 +3,6 @@ import { useEffect, useMemo, useState } from "react";
 import { Alert, Button, FlatList, Image, Platform, StyleSheet, Text, TextInput, View } from "react-native";
 import { PersonaViewModel } from "../../UI/ViewModels/Persona/PersonaViewModel";
 
-
 const vm = PersonaViewModel.getInstance();
 
 export default function ListadoPersonasView() {
@@ -11,27 +10,26 @@ export default function ListadoPersonasView() {
   const [filtro, setFiltro] = useState("");
   const [personas, setPersonas] = useState(vm.personas);
 
-  // Carga inicial de personas
-  const cargarPersonas = async () => {
-    try {
-      await vm.cargarPersonas();
-      setPersonas([...vm.personas]);
-    } catch (error) {
-      console.error("Error cargando personas:", error);
-    }
-  };
-
-  // Suscripción a cambios del ViewModel
+  // Carga inicial de personas y suscripción a cambios
   useEffect(() => {
-    cargarPersonas();
-    const handler = () => setPersonas([...vm.personas]);
-    const unsubscribe = vm.onChange(handler);
+    const cargar = async () => {
+      try {
+        await vm.cargarPersonas();
+        setPersonas([...vm.personas]);
+      } catch (error) {
+        console.error("Error cargando personas:", error);
+      }
+    };
+
+    cargar();
+    const unsubscribe = vm.onChange(() => setPersonas([...vm.personas]));
+
     return () => {
-      if (unsubscribe) unsubscribe(); // limpia la suscripción
+      if (unsubscribe) unsubscribe();
     };
   }, []);
 
-  // Filtrado en tiempo real con useMemo
+  // Filtrado en tiempo real
   const personasFiltradas = useMemo(
     () =>
       personas.filter((p) =>
@@ -40,37 +38,37 @@ export default function ListadoPersonasView() {
     [filtro, personas]
   );
 
-const eliminarPersona = (id: number, nombreCompleto: string) => {
-  if (Platform.OS === "web") {
-    if (confirm(`¿Seguro que quieres eliminar a ${nombreCompleto}?`)) {
-      vm.eliminarPersona(id);
-    }
-  } else {
-    Alert.alert(
-      "Confirmar eliminación",
-      `¿Seguro que quieres eliminar a ${nombreCompleto}?`,
-      [
-        { text: "Cancelar", style: "cancel" },
-        {
-          text: "Eliminar",
-          style: "destructive",
-          onPress: async () => {
-            try {
-              await vm.eliminarPersona(id);
-              Alert.alert("Éxito", `Se eliminó a ${nombreCompleto}`);
-            } catch (error: any) {
-              console.error("Error al eliminar persona:", error);
-              Alert.alert("Error", error.message || "No se pudo eliminar la persona");
-            }
+  // Función eliminar con compatibilidad web y móvil
+  const eliminarPersona = (id: number, nombreCompleto: string) => {
+    if (Platform.OS === "web") {
+      if (confirm(`¿Seguro que quieres eliminar a ${nombreCompleto}?`)) {
+        vm.eliminarPersona(id);
+      }
+    } else {
+      Alert.alert(
+        "Confirmar eliminación",
+        `¿Seguro que quieres eliminar a ${nombreCompleto}?`,
+        [
+          { text: "Cancelar", style: "cancel" },
+          {
+            text: "Eliminar",
+            style: "destructive",
+            onPress: async () => {
+              try {
+                await vm.eliminarPersona(id);
+                Alert.alert("Éxito", `Se eliminó a ${nombreCompleto}`);
+              } catch (error: any) {
+                console.error("Error al eliminar persona:", error);
+                Alert.alert("Error", error.message || "No se pudo eliminar la persona");
+              }
+            },
           },
-        },
-      ]
-    );
-  }
-};
+        ]
+      );
+    }
+  };
 
-
-  // Render de cada item
+  // Render de cada persona
   const renderItem = ({ item }: any) => (
     <View style={styles.itemContainer}>
       <Image
@@ -148,4 +146,3 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
 });
-

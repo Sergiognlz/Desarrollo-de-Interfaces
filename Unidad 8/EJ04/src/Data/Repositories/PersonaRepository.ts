@@ -67,16 +67,22 @@ export class PersonasRepository implements IPersonaRepository {
 }
 
 async EditPersona(persona: Persona): Promise<number> {
-  // Aseguramos que fechaNacimiento sea un objeto Date válido
+  // Aseguramos que fechaNacimiento sea Date
   let fecha: string;
   if (persona.fechaNacimiento instanceof Date) {
-    fecha = persona.fechaNacimiento.toISOString(); // ISO completo, compatible con ASP.NET
+    // Solo fecha, sin hora ni zona
+    const y = persona.fechaNacimiento.getFullYear();
+    const m = (persona.fechaNacimiento.getMonth() + 1).toString().padStart(2, '0');
+    const d = persona.fechaNacimiento.getDate().toString().padStart(2, '0');
+    fecha = `${y}-${m}-${d}`; // "YYYY-MM-DD"
   } else {
+    // si viene como string
     const parsed = new Date(persona.fechaNacimiento);
-    if (isNaN(parsed.getTime())) {
-      throw new Error("Fecha de nacimiento inválida");
-    }
-    fecha = parsed.toISOString();
+    if (isNaN(parsed.getTime())) throw new Error("Fecha de nacimiento inválida");
+    const y = parsed.getFullYear();
+    const m = (parsed.getMonth() + 1).toString().padStart(2, '0');
+    const d = parsed.getDate().toString().padStart(2, '0');
+    fecha = `${y}-${m}-${d}`;
   }
 
   const body = {
@@ -86,10 +92,10 @@ async EditPersona(persona: Persona): Promise<number> {
     telefono: persona.telefono,
     direccion: persona.direccion,
     foto: persona.foto,
-    fechaNacimiento: fecha,
+    fechaNacimiento: fecha, // <-- solo fecha
     idDepartamento: persona.idDepartamento,
   };
-  console.log("Persona desde repositorio", body)
+
   const res = await fetch(`${this.apiUrl}${persona.id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
@@ -102,7 +108,8 @@ async EditPersona(persona: Persona): Promise<number> {
   }
 
   return 1;
-} 
+}
+
 
 
   async DeletePersona(id: number): Promise<number> {
