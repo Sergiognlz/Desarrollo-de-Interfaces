@@ -85,17 +85,16 @@ async EditPersona(persona: Persona): Promise<number> {
     fecha = `${y}-${m}-${d}`;
   }
 
- const body = {
-  id: persona.id,
-  nombre: persona.nombre,
-  apellidos: persona.apellidos,
-  telefono: persona.telefono,
-  direccion: persona.direccion,
-  foto: persona.foto,
-  fechaNacimiento: persona.fechaNacimiento, // <-- ya es string "YYYY-MM-DD"
-  idDepartamento: persona.idDepartamento,
-};
-
+  const body = {
+    id: persona.id,
+    nombre: persona.nombre,
+    apellidos: persona.apellidos,
+    telefono: persona.telefono,
+    direccion: persona.direccion,
+    foto: persona.foto,
+    fechaNacimiento: fecha, // <-- solo fecha
+    idDepartamento: persona.idDepartamento,
+  };
 
   const res = await fetch(`${this.apiUrl}${persona.id}`, {
     method: "PUT",
