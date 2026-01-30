@@ -1,18 +1,22 @@
-import { Persona } from "../../Entities/Persona";
+import { PersonaUIModel } from "@/src/UI/Models/PersonaUIModel";
 import { IPersonaRepository } from "../../Interfaces/Repositories/IPersonaRepository";
 
 export class GetPersonaUseCase {
   constructor(private repo: IPersonaRepository) {}
 
-  async execute(): Promise<Persona[]> {
+  async execute(): Promise<PersonaUIModel[]> {
     const personas = await this.repo.GetListadoPersonasCompleto();
+
+    // Convertimos a UIModel
+    const personasUI = personas.map(p => PersonaUIModel.fromDomain(p));
+
     const day = new Date().getDay();
 
-    // Viernes (5) y sábado (6)
+    // Viernes (5) y sábado (6): solo mayores de 18
     if (day === 5 || day === 6) {
-      return personas.filter(p => p.edad >= 18);
+      return personasUI.filter(p => p.edad >= 18);
     }
 
-    return personas;
+    return personasUI;
   }
 }
